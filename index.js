@@ -32,24 +32,29 @@ response.writeHead(200, {'Content-Type': 'text/html'});
 let page = firstPage(formTag);
 response.write(page);
 response.end();
-//? 처음 페이지에 접속하면 앞서 설정해놨던 formTag를 띄워준다.
+//? 최초 접속시엔 앞서 만들어 놓은 formTag를 띄워준다.
 }
 // 무언가
 if(request.method === 'GET' && request.url.startsWith('/login')) {
 console.log(request.url);
+
+//? '='를 기준으로 받은 입력값을 나눠 배열화 시킨다.
 const name = request.url.split('=')[1];
+
 console.log(name);
 response.writeHead(200, {'Content-Type': 'text/html'});
-let page = firstPage(greet(name))
 
+//? 입력받은 배열은 html형식에 맞게 페이지에 써준다.
+let page = firstPage(greet(name))
 response.write(page);
 response.write("<div style='background-color : red'>hello</div>");
 response.write(page);
 response.write(page);
-//? write의 개수는 몇개가 쓰여지든 상관 없는지 확인. html 페이지니까 write일 때 style속성을 부여해도 적용되는지 확인.
+//? write의 개수는 몇개가 쓰여지든 상관 없는지 확인. html 페이지니까 write일 때 style속성을 부여해도 적용되는지 확인해 봄.
 response.end();
 }
 });
+
 // 서버 포트 설정
 server.listen(2080, function(error) {
 if(error) { console.error('서버 안돌아감') } else { console.log('서버 돌아감'); }
